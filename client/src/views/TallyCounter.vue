@@ -28,6 +28,7 @@ export default {
   computed: {
     currentVisitors () {
       let currentVisitors = this.$store.getters['statistics/get']('currentVisitors')
+      console.log(currentVisitors)
       return currentVisitors ? currentVisitors.data : 0
     }
   },
