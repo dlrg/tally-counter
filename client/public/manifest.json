@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "short_name": "client",
+  "name": "Tally Counter",
+  "short_name": "Tally Counter",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",

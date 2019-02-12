@@ -19,8 +19,7 @@ export default new Vuex.Store({
   actions: {
   },
   plugins: [
-    service('statistics'),
-    service('station'),
-    service('entry')
+    service('counter'),
+    service('position')
   ]
 })

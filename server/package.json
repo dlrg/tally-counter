@@ -25,6 +25,7 @@
   "scripts": {
     "test": "npm run eslint && NODE_ENV= npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "eslint:fix": "eslint src/. test/. --fix --config .eslintrc.json",
     "dev": "nodemon src/",
     "start": "node src/",
     "mocha": "mocha test/ --recursive --exit"
@@ -37,6 +38,7 @@
     "@feathersjs/socketio": "^3.2.9",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
+    "feathers-hooks-common": "^4.20.2",
     "feathers-mongoose": "^7.3.1",
     "helmet": "^3.15.0",
     "mongodb-core": "^3.1.11",

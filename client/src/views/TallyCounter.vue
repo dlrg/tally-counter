@@ -4,52 +4,53 @@
       <counter :value="currentVisitors" name="Besucher aktuell"/>
       <counter :value="ownCount" name="Selber gezählte Besucher"/>
     </main>
-    <stationSelect v-model="stationId" class="stationSelect"/>
+    <positionSelect v-model="positionId" class="positionSelect"/>
+    <directionSelect v-model="direction" class="directionSelect"/>
   </section>
 </template>
 
 <script>
 import Counter from '../components/Counter'
-import StationSelect from '../components/StationSelect'
+import PositionSelect from '../components/PositionSelect'
+import DirectionSelect from '../components/DirectionSelect'
 import { mapActions } from 'vuex'
 
 export default {
   components: {
     Counter,
-    StationSelect
+    PositionSelect,
+    DirectionSelect
   },
   data () {
     return {
       ownCount: 0,
       blink: false,
-      stationId: null
+      positionId: null,
+      direction: null
     }
   },
   computed: {
     currentVisitors () {
-      let currentVisitors = this.$store.getters['statistics/get']('currentVisitors')
-      console.log(currentVisitors)
+      let currentVisitors = this.$store.getters['counter/get'](this.positionId)
       return currentVisitors ? currentVisitors.data : 0
     }
   },
   methods: {
-    ...mapActions('entry', {
+    ...mapActions('counter', {
       enter: 'create'
     }),
     count () {
-      const { stationId } = this
-      if (stationId) {
+      const { positionId, direction } = this
+      if (positionId && direction) {
         navigator.vibrate(100)
         this.blink = true
         this.ownCount++
-        this.enter({
-          stationId
-        })
+        this.enter({ positionId, direction })
       }
     }
   },
   created () {
-    this.$store.dispatch('statistics/get', 'currentVisitors')
+    this.$store.dispatch('counter/get', this.positionId)
   }
 }
 </script>
@@ -74,8 +75,17 @@ export default {
     background-color: #27ae60;
   }
 
-  .stationSelect {
+  .positionSelect {
     position: absolute;
-    bottom: 0
+    width: 50%;
+    bottom: 0;
+    left:0;
+  }
+
+  .directionSelect {
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    right:0;
   }
 </style>

@@ -1,11 +1,9 @@
 const entry = require('./entry/entry.service.js');
-const station = require('./station/station.service.js');
 const position = require('./position/position.service.js');
-const statistics = require('./statistics/statistics.service.js');
+const counter = require('./counter/counter.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(entry);
-  app.configure(station);
   app.configure(position);
-  app.configure(statistics);
+  app.configure(counter);
 };
