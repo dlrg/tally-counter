@@ -1,7 +1,5 @@
 # tally-counter-server
 
-> 
-
 ## About
 
 This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
@@ -14,7 +12,7 @@ Getting up and running is as easy as 1, 2, 3.
 2. Install your dependencies
 
     ```
-    cd path/to/tally-counter-server; npm install
+    cd path/to/tally-counter/server; npm install
     ```
 
 3. Start your app
