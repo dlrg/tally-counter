@@ -29,6 +29,17 @@ export default {
       direction: null
     }
   },
+  watch: {
+    positionId: function (newVal, oldVal) {
+      this.$store.dispatch('channel-subscription/remove', oldVal)
+      this.$store.dispatch('channel-subscription/create', { positionId: newVal })
+      this.$store.dispatch('counter/get', newVal)
+      this.ownCount = 0
+    },
+    direction: function () {
+      this.ownCount = 0
+    }
+  },
   computed: {
     currentVisitors () {
       let currentVisitors = this.$store.getters['counter/get'](this.positionId)

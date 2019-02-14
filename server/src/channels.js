@@ -42,7 +42,14 @@ module.exports = function(app) {
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
     // e.g. to publish all service events to all authenticated users use
-    return app.channel('anonymous', 'authenticated');
+    return app.channel('authenticated');
+  });
+
+  app.service('counter').publish((res) => {
+    return [
+      app.channel('position/*'),
+      app.channel(`position/${res._id}`)
+    ];
   });
 
   // Here you can also add service specific event publishers

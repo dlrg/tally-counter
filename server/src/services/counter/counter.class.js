@@ -2,6 +2,7 @@ const errors = require('@feathersjs/errors');
 /* eslint-disable no-unused-vars */
 class Service {
   constructor ({app}) {
+    this.app = app;
     this.events = ['patched'];
 
     this._currentVisitors = async (positionId) => {
@@ -24,10 +25,6 @@ class Service {
       }
     };
 
-  }
-
-  async find (params) {
-    return [];
   }
 
   async get (id, params) {
