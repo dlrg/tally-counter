@@ -1,23 +1,8 @@
 <template>
   <section class="section-app">
-    <router-view v-if="connection"/>
-    <error message="Leider haben wir gerade keine Verbindung"/>
+    <router-view />
   </section>
 </template>
-
-<script>
-import store from './store'
-import Error from './components/Error'
-
-export default {
-  components: {
-    Error
-  },
-  computed: {
-    connection: () => store.state.connection
-  }
-}
-</script>
 
 <style lang="scss">
 

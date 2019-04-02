@@ -1,32 +1,44 @@
 <template>
-  <section :class="{blink}" @transitionend="blink = false">
-    <main @click="count">
-      <counter :value="currentVisitors" name="Besucher aktuell"/>
-      <counter :value="ownCount" name="Selber gezählte Besucher"/>
-    </main>
-    <positionSelect v-model="positionId" class="positionSelect"/>
-    <directionSelect v-model="direction" class="directionSelect"/>
+  <section v-touch="{
+      left: () => swipe('left'),
+      right: () => swipe('right'),
+      up: () => swipe('up'),
+      down: () => swipe('down')
+    }">
+    <section v-if="connection" :class="{blink}" @transitionend="blink = false">
+      <main @click="count">
+        <counter :value="currentVisitors" name="Besucher aktuell"/>
+        <counter :value="ownCount" name="Selber gezählte Besucher"/>
+      </main>
+      <positionSelect v-model="positionId" class="positionSelect"/>
+      <directionSelect v-model="direction" class="directionSelect"/>
+    </section>
+    <error v-if="!connection" message="Leider haben wir gerade keine Verbindung"/>
   </section>
 </template>
 
 <script>
-import Counter from '../components/Counter'
-import PositionSelect from '../components/PositionSelect'
-import DirectionSelect from '../components/DirectionSelect'
-import { mapActions } from 'vuex'
+import Counter from '../components/TallyCounter/Counter'
+import PositionSelect from '../components/TallyCounter/PositionSelect'
+import DirectionSelect from '../components/TallyCounter/DirectionSelect'
+import Error from '../components/Error'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   components: {
     Counter,
     PositionSelect,
-    DirectionSelect
+    DirectionSelect,
+    Error
   },
   data () {
     return {
       ownCount: 0,
       blink: false,
       positionId: null,
-      direction: null
+      direction: null,
+      adminPrep: false,
+      adminInterval: null
     }
   },
   watch: {
@@ -41,12 +53,23 @@ export default {
     }
   },
   computed: {
+    ...mapState({ connection: 'connection' }),
     currentVisitors () {
       let currentVisitors = this.$store.getters['counter/get'](this.positionId)
       return currentVisitors ? currentVisitors.data : 0
     }
   },
   methods: {
+    swipe (swipe) {
+      if (this.adminPrep && swipe === 'left') {
+        clearTimeout(this.adminInterval)
+        this.adminPrep = false
+        this.$router.push({ name: 'dashboard' })
+      } else if (swipe === 'down') {
+        this.adminPrep = true
+        this.adminInterval = setTimeout(() => { this.adminPrep = false }, 500)
+      }
+    },
     ...mapActions('counter', {
       enter: 'create'
     }),
