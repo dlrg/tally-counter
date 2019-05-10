@@ -1,8 +1,26 @@
 <template>
-  <section class="section-app">
+  <component
+    :is="layout"
+    class="section-app"
+  >
     <router-view />
-  </section>
+  </component>
 </template>
+
+<script>
+import Admin from './components/Admin/Layout'
+export default {
+  name: 'App',
+  computed: {
+    layout () {
+      switch (this.$route.meta.layout) {
+      case 'Admin': return Admin
+      default: return 'div'
+      }
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 

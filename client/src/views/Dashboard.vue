@@ -1,20 +1,16 @@
 <template>
-  <layout>
+  <div>
     Hey {{ test }}
     <line-chart
       :data="bla"
       :download="true"
     />
-  </layout>
+  </div>
 </template>
 
 <script>
-import Layout from '../components/Admin/layout'
 
 export default {
-  components: {
-    Layout
-  },
   data () {
     return {
       test: 'bla',
