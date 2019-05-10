@@ -53,6 +53,11 @@
 
 <script>
 export default {
-  props: [ 'drawer' ]
+  props: {
+    drawer: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>

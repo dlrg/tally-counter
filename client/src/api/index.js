@@ -1,11 +1,12 @@
 import feathers from '@feathersjs/feathers'
 import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
-console.log(process.env)
-const socket = io('http://192.168.1.101:3030', { transports: ['websocket'] })
+
+const socket = io('/', { transports: ['websocket'], path: '/api/socket.io' })
 
 const feathersClient = feathers()
-  .configure(socketio(socket))
+  .configure(socketio(socket, {
+    timeout: 120000
+  }))
 
-feathersClient.service('counter').on('patched', console.log)
 export default feathersClient

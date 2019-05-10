@@ -80,6 +80,9 @@ export default {
       this.ownCount = 0
     }
   },
+  created () {
+    this.$store.dispatch('counter/get', this.positionId)
+  },
   methods: {
     swipe (swipe) {
       if (this.adminPrep && swipe === 'left') {
@@ -103,9 +106,6 @@ export default {
         this.enter({ positionId, direction })
       }
     }
-  },
-  created () {
-    this.$store.dispatch('counter/get', this.positionId)
   }
 }
 </script>

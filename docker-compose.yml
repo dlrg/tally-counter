@@ -7,7 +7,7 @@ services:
     tty: true
     command: npm run serve
     environment:
-      - VUE_APP_API_URL=http://api:3030
+      - VUE_APP_API_URL=http://server:3030
     ports:
       - 8080:8080
     volumes:

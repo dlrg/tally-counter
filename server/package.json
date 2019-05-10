@@ -23,6 +23,7 @@
     "npm": ">= 3.0.0"
   },
   "scripts": {
+    "serve": "nodemon --inspect=0.0.0.0:9999",
     "test": "npm run eslint && NODE_ENV= npm run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "eslint:fix": "eslint src/. test/. --fix --config .eslintrc.json",
