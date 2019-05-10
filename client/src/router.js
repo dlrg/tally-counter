@@ -13,7 +13,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'counter',
+      name: 'TallyCounter',
       component: () => import('./views/TallyCounter.vue')
     },
     {
@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: '/admin/dashboard',
-      name: 'dashboard',
+      name: 'Dashboard',
       component: () => import('./views/Dashboard.vue'),
       meta: {
         layout: 'Admin'

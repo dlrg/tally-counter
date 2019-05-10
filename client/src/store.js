@@ -20,7 +20,7 @@ export default new Vuex.Store({
   },
   plugins: [
     service('counter'),
-    service('position'),
+    service('event'),
     service('channel-subscription')
   ]
 })

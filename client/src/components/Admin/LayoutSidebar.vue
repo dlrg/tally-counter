@@ -7,7 +7,7 @@
   >
     <v-list dense>
       <v-list-tile
-        @click="$router.push({name: 'dashboard'})"
+        @click="$router.push({name: 'Dashboard'})"
       >
         <v-list-tile-action>
           <v-icon>fa-home</v-icon>
@@ -17,7 +17,7 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
-        @click="$router.push({name: 'event-list'})"
+        @click="$router.push({name: 'EventList'})"
       >
         <v-list-tile-action>
           <v-icon>fa-calendar</v-icon>
@@ -27,7 +27,7 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
-        @click="$router.push({name: 'counter'})"
+        @click="$router.push({name: 'Counter'})"
       >
         <v-list-tile-action>
           <v-icon>fa-external-link-alt</v-icon>

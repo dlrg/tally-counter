@@ -13,7 +13,6 @@
       >
         <v-layout
           justify-center
-          align-center
         >
           <v-flex>
             <slot>
