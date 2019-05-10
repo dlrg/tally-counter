@@ -1,15 +1,33 @@
 <template>
-  <select :value="value" @change="$emit('input', $event.target.value)">
-    <option :value="undefined" hidden disabled>Keine Richtung ausgewählt</option>
-    <option value="up">Eingang</option>
-    <option value="down">Ausgang</option>
+  <select
+    :value="value"
+    @change="$emit('input', $event.target.value)"
+  >
+    <option
+      :value="undefined"
+      hidden
+      disabled
+    >
+      Keine Richtung ausgewählt
+    </option>
+    <option value="up">
+      Eingang
+    </option>
+    <option value="down">
+      Ausgang
+    </option>
   </select>
 </template>
 
 <script>
 export default {
   name: 'DirectionSelect',
-  props: ['value']
+  props: {
+    value: {
+      type: String,
+      default: 'up'
+    }
+  }
 }
 </script>
 

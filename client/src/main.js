@@ -4,14 +4,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import feathersClient from './feathers-client'
+import feathers from './api'
 import Chart from 'chart.js'
 import VueChartkick from 'vue-chartkick'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
-['connect', 'reconnect'].forEach(event => feathersClient.io.on(event, () => store.commit('setConnection', true)));
-['connect_error', 'reconnect_error'].forEach(event => feathersClient.io.on(event, () => store.commit('setConnection', false)))
+['connect', 'reconnect'].forEach(event => feathers.io.on(event, () => store.commit('setConnection', true)));
+['connect_error', 'reconnect_error'].forEach(event => feathers.io.on(event, () => store.commit('setConnection', false)))
 
 Vue.config.productionTip = false
 Vue.use(VueChartkick, { adapter: Chart })

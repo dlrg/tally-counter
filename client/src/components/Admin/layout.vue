@@ -1,13 +1,26 @@
 <template>
   <v-app id="inspire">
-    <layout-sidebar :drawer="drawer"></layout-sidebar>
-    <layout-header :drawer="drawer"></layout-header>
+    <layout-sidebar :drawer="drawer" />
+    <layout-header :drawer="drawer" />
     <v-content>
-      <v-container fluid fill-height>
-        <slot></slot>
+      <v-container
+        fluid
+        fill-height
+      >
+        <slot />
       </v-container>
     </v-content>
-    <v-btn @click="drawer = !drawer" color="red" dark fab fixed bottom right><v-icon>fa-bolt</v-icon></v-btn>
+    <v-btn
+      color="red"
+      dark
+      fab
+      fixed
+      bottom
+      right
+      @click="drawer = !drawer"
+    >
+      <v-icon>fa-bolt</v-icon>
+    </v-btn>
   </v-app>
 </template>
 

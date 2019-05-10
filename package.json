@@ -1,0 +1,7 @@
+{
+  "name": "tally-counter",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "docker-compose build && docker-compose up"
+  }
+}

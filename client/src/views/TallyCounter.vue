@@ -1,19 +1,40 @@
 <template>
-  <section v-touch="{
+  <section
+    v-touch="{
       left: () => swipe('left'),
       right: () => swipe('right'),
       up: () => swipe('up'),
       down: () => swipe('down')
-    }">
-    <section v-if="connection" :class="{blink}" @transitionend="blink = false">
+    }"
+  >
+    <section
+      v-if="connection"
+      :class="{blink}"
+      @transitionend="blink = false"
+    >
       <main @click="count">
-        <counter :value="currentVisitors" name="Besucher aktuell"/>
-        <counter :value="ownCount" name="Selber gezählte Besucher"/>
+        <counter
+          :value="currentVisitors"
+          name="Besucher aktuell"
+        />
+        <counter
+          :value="ownCount"
+          name="Selber gezählte Besucher"
+        />
       </main>
-      <positionSelect v-model="positionId" class="positionSelect"/>
-      <directionSelect v-model="direction" class="directionSelect"/>
+      <positionSelect
+        v-model="positionId"
+        class="positionSelect"
+      />
+      <directionSelect
+        v-model="direction"
+        class="directionSelect"
+      />
     </section>
-    <error v-if="!connection" message="Leider haben wir gerade keine Verbindung"/>
+    <error
+      v-if="!connection"
+      message="Leider haben wir gerade keine Verbindung"
+    />
   </section>
 </template>
 
@@ -41,6 +62,13 @@ export default {
       adminInterval: null
     }
   },
+  computed: {
+    ...mapState({ connection: 'connection' }),
+    currentVisitors () {
+      let currentVisitors = this.$store.getters['counter/get'](this.positionId)
+      return currentVisitors ? currentVisitors.data : 0
+    }
+  },
   watch: {
     positionId: function (newVal, oldVal) {
       this.$store.dispatch('channel-subscription/remove', oldVal)
@@ -50,13 +78,6 @@ export default {
     },
     direction: function () {
       this.ownCount = 0
-    }
-  },
-  computed: {
-    ...mapState({ connection: 'connection' }),
-    currentVisitors () {
-      let currentVisitors = this.$store.getters['counter/get'](this.positionId)
-      return currentVisitors ? currentVisitors.data : 0
     }
   },
   methods: {

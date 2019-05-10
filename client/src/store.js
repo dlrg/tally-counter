@@ -1,9 +1,9 @@
 import feathersVuex from 'feathers-vuex'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import feathersClient from './feathers-client'
+import feathers from './api'
 
-const { service } = feathersVuex(feathersClient, { idField: '_id' })
+const { service } = feathersVuex(feathers, { idField: '_id' })
 
 Vue.use(Vuex)
 

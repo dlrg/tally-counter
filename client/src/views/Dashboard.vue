@@ -1,7 +1,10 @@
 <template>
   <layout>
     Hey {{ test }}
-    <line-chart :data="bla" :download="true"/>
+    <line-chart
+      :data="bla"
+      :download="true"
+    />
   </layout>
 </template>
 
