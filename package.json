@@ -2,6 +2,7 @@
   "name": "tally-counter",
   "version": "0.0.0",
   "scripts": {
-    "start": "docker-compose build && docker-compose up"
+    "start": "docker-compose build && docker-compose up",
+    "prod": "docker-compose -f prod.docker-compose.yml build && docker-compose -f prod.docker-compose.yml up"
   }
 }

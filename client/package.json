@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "prod": "serve -sn -l 0.0.0.0:80 dist",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -15,6 +16,7 @@
     "feathers-vuex": "^1.6.2",
     "register-service-worker": "^1.5.2",
     "roboto-fontface": "*",
+    "serve": "^11.0.0",
     "socket.io-client": "^2.2.0",
     "vue": "^2.5.22",
     "vue-chartkick": "^0.5.0",

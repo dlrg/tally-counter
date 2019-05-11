@@ -88,7 +88,11 @@ export default {
       if (this.adminPrep && swipe === 'left') {
         clearTimeout(this.adminInterval)
         this.adminPrep = false
-        this.$router.push({ name: 'Dashboard' })
+        if (this.eventId) {
+          this.$router.push({ name: 'EventDetail', params: { eventId: this.eventId } })
+        } else {
+          this.$router.push({ name: 'Dashboard' })
+        }
       } else if (swipe === 'down') {
         this.adminPrep = true
         this.adminInterval = setTimeout(() => { this.adminPrep = false }, 1000)
