@@ -42,9 +42,11 @@
     "feathers-hooks-common": "^4.20.2",
     "feathers-mongoose": "^7.3.1",
     "helmet": "^3.15.0",
+    "moment": "^2.24.0",
     "mongodb-core": "^3.1.11",
     "mongoose": "^5.4.11",
     "serve-favicon": "^2.5.0",
+    "timebucket": "^0.4.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {

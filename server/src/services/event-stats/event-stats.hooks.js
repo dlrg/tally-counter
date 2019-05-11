@@ -1,8 +1,8 @@
-const {paramsFromClient} = require('feathers-hooks-common')
+
 
 module.exports = {
   before: {
-    all: [paramsFromClient('paginate')],
+    all: [],
     find: [],
     get: [],
     create: [],
@@ -30,4 +30,4 @@ module.exports = {
     patch: [],
     remove: []
   }
-}
+};

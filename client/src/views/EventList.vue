@@ -27,7 +27,7 @@
     >
       <template v-slot:items="props">
         <tr
-          @click="$router.push({name: 'EventEdit', params: {eventId: props.item._id}})"
+          @click="$router.push({name: 'EventDetail', params: {eventId: props.item._id}})"
         >
           <td>{{ props.item.name }}</td>
           <td>{{ props.item.status }}</td>

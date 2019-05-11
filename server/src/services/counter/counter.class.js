@@ -4,10 +4,26 @@ class Service {
   constructor ({app}) {
     this.app = app
     this.events = ['patched']
+    this.counterCache = {}
 
-    this._currentVisitors = async (eventId) => {
-      const entries = await app.service('entry').find({paginate: false, query: {eventId}})
-      const data = entries.reduce((prev, cur) => prev + cur.count, 0)
+    this._currentVisitors = async (eventId, count) => {
+      console.time(eventId)
+      const cachedCounter = this.counterCache[eventId]
+      let data
+      if (cachedCounter) {
+        if (count) {
+          addCount(cachedCounter, count)
+        }
+        data = cachedCounter
+      } else {
+        const entries = await app.service('entry').find({paginate: false, query: {eventId}})
+        data = entries.reduce((stat, entry) => {
+          addCount(stat, entry.count)
+          return stat
+        }, {diff: 0, in: 0, out: 0})
+        this.counterCache[eventId] = data
+      }
+      console.timeEnd(eventId)
       return {
         _id: eventId,
         data
@@ -17,11 +33,11 @@ class Service {
     this._count = {
       up: async (eventId) => {
         return app.service('entry').create({eventId, count: 1})
-          .then(res => this._currentVisitors(res.eventId))
+          .then(res => this._currentVisitors(res.eventId, 1))
       },
       down: async (eventId) => {
         return app.service('entry').create({eventId, count: -1})
-          .then(res => this._currentVisitors(res.eventId))
+          .then(res => this._currentVisitors(res.eventId, -1))
       }
     }
 
@@ -45,3 +61,13 @@ module.exports = function (options) {
 }
 
 module.exports.Service = Service
+
+function addCount(stat, count) {
+  stat.diff += count
+  if (count < 0) {
+    stat.out += count
+  } else {
+    stat.in += count
+  }
+  return stat
+}

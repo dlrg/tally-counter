@@ -66,7 +66,7 @@ export default {
     ...mapState({ connection: 'connection' }),
     currentVisitors () {
       let currentVisitors = this.$store.getters['counter/get'](this.eventId)
-      return currentVisitors ? currentVisitors.data : 0
+      return currentVisitors ? currentVisitors.data.diff : 0
     }
   },
   watch: {

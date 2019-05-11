@@ -45,10 +45,10 @@ module.exports = function(app) {
     return app.channel('authenticated')
   })
 
-  app.service('counter').publish((res) => {
+  app.service('counter').publish((counter) => {
     return [
       app.channel('event/*'),
-      app.channel(`event/${res._id}`)
+      app.channel(`event/${counter._id}`)
     ]
   })
 
