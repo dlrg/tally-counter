@@ -28,6 +28,65 @@
           In: {{ counter.data.in }}<br>
           Out: {{ counter.data.out }}
         </p>
+        
+        <v-layout>
+          <v-flex xs6 sm3 pa-1>
+            <v-card :color="event.status === 'OPEN' ? 'green' : 'red'" dark max-width="200">
+              <v-card-title>
+                <v-icon large left>
+                  fa-info-circle
+                </v-icon>
+                <span class="title font-weight-light">Status</span>
+              </v-card-title>
+
+              <v-card-text class="headline font-weight-bold">
+                {{ event.status === 'OPEN' ? 'Offen' : 'Rot' }}
+              </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs6 sm3 pa-1 v-if="counter">
+            <v-card color="info" dark max-width="200">
+              <v-card-title>
+                <v-icon large left>
+                  fa-info-circle
+                </v-icon>
+                <span class="title font-weight-light">Gesamt</span>
+              </v-card-title>
+
+              <v-card-text class="headline font-weight-bold">
+                {{ counter.data.diff }}
+              </v-card-text>
+            </v-card>
+          </v-flex>
+          <v-flex xs6 sm3 pa-1 v-if="counter">
+            <v-card color="info" dark max-width="200">
+              <v-card-title>
+                <v-icon large left>
+                  fa-info-circle
+                </v-icon>
+                <span class="title font-weight-light">Rein</span>
+              </v-card-title>
+
+              <v-card-text class="headline font-weight-bold">
+                {{ counter.data.in }}
+              </v-card-text>
+            </v-card>
+          </v-flex>  
+          <v-flex xs6 sm3 pa-1 v-if="counter">
+            <v-card color="info" dark max-width="200">
+              <v-card-title>
+                <v-icon large left>
+                  fa-info-circle
+                </v-icon>
+                <span class="title font-weight-light">Raus</span>
+              </v-card-title>
+
+              <v-card-text class="headline font-weight-bold">
+                {{ counter.data.out }}
+              </v-card-text>
+            </v-card>
+          </v-flex> 
+        </v-layout>
         <line-chart
           :data="eventStats"
           :download="true"
@@ -56,6 +115,9 @@ export default {
     counter () {
       return this.$store.getters['counter/get'](this.event._id)
     }
+  },
+  mounted () {
+    console.log(this.$vuetify.breakpoint)
   },
   watch: {
     '$route': {
