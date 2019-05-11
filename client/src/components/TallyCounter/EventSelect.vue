@@ -1,25 +1,23 @@
 <template>
-  <div>
-    <select
-      :value="value"
-      @change="$emit('input', $event.target.value)"
+  <select
+    :value="value"
+    @change="$emit('input', $event.target.value)"
+  >
+    <option
+      :value="undefined"
+      hidden
+      disabled
     >
-      <option
-        :value="undefined"
-        hidden
-        disabled
-      >
-        Keine Event ausgewählt
-      </option>
-      <option
-        v-for="event of openEvents"
-        :key="event._id"
-        :value="event._id"
-      >
-        {{ event.name }}
-      </option>
-    </select>
-  </div>
+      Keine Event ausgewählt
+    </option>
+    <option
+      v-for="event of openEvents"
+      :key="event._id"
+      :value="event._id"
+    >
+      {{ event.name }}
+    </option>
+  </select>
 </template>
 
 <script>
