@@ -27,7 +27,7 @@
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
-        @click="$router.push({name: 'Counter'})"
+        @click="$router.push({name: 'TallyCounter'})"
       >
         <v-list-tile-action>
           <v-icon>fa-external-link-alt</v-icon>

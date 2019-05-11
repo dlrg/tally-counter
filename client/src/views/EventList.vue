@@ -66,12 +66,13 @@ export default {
       get () {
         return {
           page: this.page,
-          rowsPerPage: this.event.limit,
+          rowsPerPage: this.limit,
           totalItems: this.event.total
         }
       },
       set (pagination) {
         this.page = pagination.page
+        this.limit = pagination.limit
       }
     },
     page: {
@@ -82,8 +83,13 @@ export default {
         this.$router.push({ query: { ...this.$route.query, page, limit: this.event.limit } })
       }
     },
-    limit () {
-      return this.$route.query.limit || 15
+    limit: {
+      get () {
+        return Number.parseInt(this.$route.query.limit) || 1
+      },
+      set (limit) {
+        this.$router.push({ query: { ...this.$route.query, limit } })
+      }
     },
     sortBy: {
       get () {
