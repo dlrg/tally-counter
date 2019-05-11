@@ -1,6 +1,4 @@
 <template>
-  <div>
-    {{ events }}
   <select
     :value="value"
     @change="$emit('input', $event.target.value)"
@@ -20,7 +18,6 @@
       {{ event.name }}
     </option>
   </select>
-  </div>
 </template>
 
 <script>
