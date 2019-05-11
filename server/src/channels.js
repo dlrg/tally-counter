@@ -47,8 +47,8 @@ module.exports = function(app) {
 
   app.service('counter').publish((res) => {
     return [
-      app.channel('position/*'),
-      app.channel(`position/${res._id}`)
+      app.channel('event/*'),
+      app.channel(`event/${res._id}`)
     ]
   })
 

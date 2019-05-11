@@ -6,7 +6,7 @@ class Service {
 
   async create (data, params) {
     if (params.connection) {
-      this.app.channel(`position/${data.positionId}`).join(params.connection)
+      this.app.channel(`event/${data.eventId}`).join(params.connection)
     }
 
     return data
@@ -14,7 +14,7 @@ class Service {
 
   async remove (id, params) {
     if (params.connection) {
-      this.app.channel(`position/${id}`).leave(params.connection)
+      this.app.channel(`event/${id}`).leave(params.connection)
     }
 
     return { id }

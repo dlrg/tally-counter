@@ -1,4 +1,6 @@
 <template>
+  <div>
+    {{ events }}
   <select
     :value="value"
     @change="$emit('input', $event.target.value)"
@@ -8,34 +10,38 @@
       hidden
       disabled
     >
-      Keine Position ausgewählt
+      Keine Event ausgewählt
     </option>
     <option
-      v-for="position of positions"
-      :key="position._id"
-      :value="position._id"
+      v-for="event of openEvents"
+      :key="event._id"
+      :value="event._id"
     >
-      {{ position.name }}
+      {{ event.name }}
     </option>
   </select>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'PositionSelect',
+  name: 'EventSelect',
   props: {
     value: {
-      type: Object,
+      type: String,
       default: null
     }
   },
   computed: {
-    positions () {
-      return this.$store.getters['position/list']
+    events () {
+      return this.$store.getters['event/list']
+    },
+    openEvents () {
+      return this.events.filter(event => event.status === 'OPEN')
     }
   },
   created () {
-    this.$store.dispatch('position/find')
+    this.$store.dispatch('event/find')
   }
 }
 </script>

@@ -5,23 +5,23 @@ class Service {
     this.app = app
     this.events = ['patched']
 
-    this._currentVisitors = async (positionId) => {
-      const entries = await app.service('entry').find({paginate: false, query: {positionId}})
+    this._currentVisitors = async (eventId) => {
+      const entries = await app.service('entry').find({paginate: false, query: {eventId}})
       const data = entries.reduce((prev, cur) => prev + cur.count, 0)
       return {
-        _id: positionId,
+        _id: eventId,
         data
       }
     }
 
     this._count = {
-      up: async (positionId) => {
-        return app.service('entry').create({positionId, count: 1})
-          .then(res => this._currentVisitors(res.positionId))
+      up: async (eventId) => {
+        return app.service('entry').create({eventId, count: 1})
+          .then(res => this._currentVisitors(res.eventId))
       },
-      down: async (positionId) => {
-        return app.service('entry').create({positionId, count: -1})
-          .then(res => this._currentVisitors(res.positionId))
+      down: async (eventId) => {
+        return app.service('entry').create({eventId, count: -1})
+          .then(res => this._currentVisitors(res.eventId))
       }
     }
 
@@ -36,7 +36,7 @@ class Service {
       return Promise.all(data.map(current => this.create(current, params)))
     }
     if (!(data.direction in this._count)) return new errors.BadRequest('Invalid direction', {direction: data.direction, available: Object.keys(this._count)})
-    return this._count[data.direction](data.positionId)
+    return this._count[data.direction](data.eventId)
   }
 }
 

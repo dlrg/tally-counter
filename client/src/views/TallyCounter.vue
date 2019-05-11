@@ -22,9 +22,9 @@
           name="Selber gezählte Besucher"
         />
       </main>
-      <positionSelect
-        v-model="positionId"
-        class="positionSelect"
+      <eventSelect
+        v-model="eventId"
+        class="eventSelect"
       />
       <directionSelect
         v-model="direction"
@@ -40,7 +40,7 @@
 
 <script>
 import Counter from '../components/TallyCounter/Counter'
-import PositionSelect from '../components/TallyCounter/PositionSelect'
+import EventSelect from '../components/TallyCounter/EventSelect'
 import DirectionSelect from '../components/TallyCounter/DirectionSelect'
 import Error from '../components/Error'
 import { mapActions, mapState } from 'vuex'
@@ -48,7 +48,7 @@ import { mapActions, mapState } from 'vuex'
 export default {
   components: {
     Counter,
-    PositionSelect,
+    EventSelect,
     DirectionSelect,
     Error
   },
@@ -56,7 +56,7 @@ export default {
     return {
       ownCount: 0,
       blink: false,
-      positionId: null,
+      eventId: null,
       direction: null,
       adminPrep: false,
       adminInterval: null
@@ -65,14 +65,14 @@ export default {
   computed: {
     ...mapState({ connection: 'connection' }),
     currentVisitors () {
-      let currentVisitors = this.$store.getters['counter/get'](this.positionId)
+      let currentVisitors = this.$store.getters['counter/get'](this.eventId)
       return currentVisitors ? currentVisitors.data : 0
     }
   },
   watch: {
-    positionId: function (newVal, oldVal) {
+    eventId: function (newVal, oldVal) {
       this.$store.dispatch('channel-subscription/remove', oldVal)
-      this.$store.dispatch('channel-subscription/create', { positionId: newVal })
+      this.$store.dispatch('channel-subscription/create', { eventId: newVal })
       this.$store.dispatch('counter/get', newVal)
       this.ownCount = 0
     },
@@ -81,7 +81,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('counter/get', this.positionId)
+    this.$store.dispatch('counter/get', this.eventId)
   },
   methods: {
     swipe (swipe) {
@@ -98,12 +98,12 @@ export default {
       enter: 'create'
     }),
     count () {
-      const { positionId, direction } = this
-      if (positionId && direction) {
+      const { eventId, direction } = this
+      if (eventId && direction) {
         navigator.vibrate(100)
         this.blink = true
         this.ownCount++
-        this.enter({ positionId, direction })
+        this.enter({ eventId, direction })
       }
     }
   }
@@ -130,7 +130,7 @@ export default {
     background-color: #27ae60;
   }
 
-  .positionSelect {
+  .eventSelect {
     position: absolute;
     width: 50%;
     bottom: 0;
