@@ -30,8 +30,7 @@
           @click="$router.push({name: 'EventEdit', params: {eventId: props.item._id}})"
         >
           <td>{{ props.item.name }}</td>
-          <td>{{ props.item.in }}</td>
-          <td>{{ props.item.out }}</td>
+          <td>{{ props.item.status }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -50,14 +49,8 @@ export default {
         value: 'name'
       },
       {
-        text: 'Eingang',
-        value: 'in',
-        allign: 'right'
-      },
-      {
-        text: 'Ausgang',
-        value: 'out',
-        allign: 'right'
+        text: 'Status',
+        value: 'status'
       }
     ]
   }),
@@ -72,7 +65,7 @@ export default {
       },
       set (pagination) {
         this.page = pagination.page
-        this.limit = pagination.limit
+        this.limit = pagination.rowsPerPage
       }
     },
     page: {
@@ -85,10 +78,11 @@ export default {
     },
     limit: {
       get () {
-        return Number.parseInt(this.$route.query.limit) || 1
+        return Number.parseInt(this.$route.query.limit) || 5
       },
       set (limit) {
-        this.$router.push({ query: { ...this.$route.query, limit } })
+        console.log(limit)
+        this.$router.replace({ query: { ...this.$route.query, limit } })
       }
     },
     sortBy: {
