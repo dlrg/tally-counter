@@ -44,6 +44,9 @@ export default {
   data: () => ({
     loading: true,
     event: null,
+    statsLoading: false,
+    statsLoadInterval: null,
+    statsLoadIntervalTime: 5000,
     eventStats: null
   }),
   computed: {
@@ -63,6 +66,13 @@ export default {
       handler: 'fetchData'
     }
   },
+  created () {
+    this.loadStats()
+    this.statsLoadInterval = setInterval(() => this.loadStats(), this.statsLoadIntervalTime)
+  },
+  destroyed () {
+    clearInterval(this.statsLoadInterval)
+  },
   methods: {
     async fetchData () {
       try {
@@ -72,13 +82,28 @@ export default {
         }
 
         this.event = await this.$store.dispatch('event/get', this.$route.params.eventId)
-        this.eventStats = await feathers.service('event-stats').get(this.event._id)
+        this.loadStats()
         await this.$store.dispatch('channel-subscription/create', { eventId: this.event._id })
         await this.$store.dispatch('counter/get', this.event._id)
       } catch (error) {
         console.error(error)
       } finally {
         this.loading = false
+      }
+    },
+    async loadStats () {
+      console.log(this.statsLoading, !this.event)
+      if (this.statsLoading || !this.event) return
+      try {
+        console.time('statsLoading')
+        this.statsLoading = true
+        this.eventStats = await feathers.service('event-stats').get(this.event._id)
+        console.log(this.eventStats)
+        console.timeEnd('statsLoading')
+      } catch (error) {
+        console.error(error)
+      } finally {
+        this.statsLoading = false
       }
     }
   }
