@@ -22,11 +22,11 @@
         </v-btn>
       </v-toolbar>
       <v-sheet class="pa-4">
-        Status: {{ event.status }}
+        Status: {{ event.status | formatEventStatus }}
         <p v-if="counter">
-          Count: {{ counter.data.diff }}<br>
-          In: {{ counter.data.in }}<br>
-          Out: {{ counter.data.out }}
+          Aktuelle Besucher: {{ counter.data.diff }}<br>
+          Eingang: {{ counter.data.in }}<br>
+          Ausgang: {{ counter.data.out }}
         </p>
         <line-chart
           :data="eventStats"
@@ -39,8 +39,12 @@
 
 <script>
 import feathers from '../api'
+import formatEventStatus from '../filters/formatEventStatus'
 export default {
   name: 'EventDetail',
+  filters: {
+    formatEventStatus
+  },
   data: () => ({
     loading: true,
     event: null,
@@ -92,14 +96,10 @@ export default {
       }
     },
     async loadStats () {
-      console.log(this.statsLoading, !this.event)
       if (this.statsLoading || !this.event) return
       try {
-        console.time('statsLoading')
         this.statsLoading = true
         this.eventStats = await feathers.service('event-stats').get(this.event._id)
-        console.log(this.eventStats)
-        console.timeEnd('statsLoading')
       } catch (error) {
         console.error(error)
       } finally {
