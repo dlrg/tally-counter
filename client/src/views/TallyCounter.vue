@@ -88,10 +88,10 @@ export default {
       if (this.adminPrep && swipe === 'left') {
         clearTimeout(this.adminInterval)
         this.adminPrep = false
-        this.$router.push({ name: 'dashboard' })
+        this.$router.push({ name: 'Dashboard' })
       } else if (swipe === 'down') {
         this.adminPrep = true
-        this.adminInterval = setTimeout(() => { this.adminPrep = false }, 500)
+        this.adminInterval = setTimeout(() => { this.adminPrep = false }, 1000)
       }
     },
     ...mapActions('counter', {
