@@ -11,7 +11,7 @@
       />
       <v-spacer />
       <v-btn
-        dark
+        color="success"
         :to="{name: 'EventCreate'}"
       >
         New

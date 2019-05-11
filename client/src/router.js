@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TallyCounter from './views/TallyCounter.vue'
-import Dashboard from './views/Dashboard.vue'
-import EventList from './views/EventList.vue'
-import EventEdit from './views/EventEdit.vue'
-import EventDetail from './views/EventDetail.vue'
 
 Vue.use(Router)
 

@@ -1,11 +1,14 @@
 import feathersVuex from 'feathers-vuex'
 import Vue from 'vue'
 import Vuex from 'vuex'
-import feathers from './api'
+import feathers from '../api'
 
-const { service } = feathersVuex(feathers, { idField: '_id' })
+import eventDefaults from './instanceDefaults/event'
+
+const { service, FeathersVuex } = feathersVuex(feathers, { idField: '_id' })
 
 Vue.use(Vuex)
+Vue.use(FeathersVuex)
 
 export default new Vuex.Store({
   state: {
@@ -20,7 +23,7 @@ export default new Vuex.Store({
   },
   plugins: [
     service('counter'),
-    service('event'),
+    service('event', { instanceDefaults: eventDefaults }),
     service('channel-subscription')
   ]
 })
