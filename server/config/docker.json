@@ -1,4 +1,4 @@
 {
   "mongodb": "mongodb://mongodb:27017/tally_counter",
-  "client": "http://localhost:8080"
+  "client": "http://0.0.0.0:8080"
 }
