@@ -30,7 +30,7 @@
           @click="$router.push({name: 'EventDetail', params: {eventId: props.item._id}})"
         >
           <td>{{ props.item.name }}</td>
-          <td>{{ props.item.status }}</td>
+          <td>{{ props.item.status | formatEventStatus }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -38,8 +38,12 @@
 </template>
 
 <script>
+import formatEventStatus from '../filters/formatEventStatus'
 export default {
   name: 'EventList',
+  filters: {
+    formatEventStatus
+  },
   data: () => ({
     event: {},
     loading: false,

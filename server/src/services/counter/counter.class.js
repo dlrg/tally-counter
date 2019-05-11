@@ -7,7 +7,6 @@ class Service {
     this.counterCache = {}
 
     this._currentVisitors = async (eventId, count) => {
-      console.time(eventId)
       const cachedCounter = this.counterCache[eventId]
       let data
       if (cachedCounter) {
@@ -23,7 +22,6 @@ class Service {
         }, {diff: 0, in: 0, out: 0})
         this.counterCache[eventId] = data
       }
-      console.timeEnd(eventId)
       return {
         _id: eventId,
         data
@@ -65,7 +63,7 @@ module.exports.Service = Service
 function addCount(stat, count) {
   stat.diff += count
   if (count < 0) {
-    stat.out += count
+    stat.out -= count
   } else {
     stat.in += count
   }
