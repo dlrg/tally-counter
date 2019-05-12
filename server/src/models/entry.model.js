@@ -1,5 +1,5 @@
 // entry-model.js - A mongoose model
-// 
+//
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
@@ -7,6 +7,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient
   const entry = new Schema({
     eventId: { type: Schema.Types.ObjectId, ref: 'event', required: true },
+    clientId: { type: Schema.Types.ObjectId, ref: 'client', required: false },
     count: { type: Number, required: true }
   }, {
     timestamps: true

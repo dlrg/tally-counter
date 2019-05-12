@@ -12,15 +12,25 @@
       :class="{blink}"
       @transitionend="blink = false"
     >
-      <main @click="count">
+      <main
+        v-if="counter"
+        @click="count"
+      >
         <counter
-          :value="currentVisitors"
+          :value="counter.data.diff"
           name="Besucher aktuell"
         />
         <counter
           :value="ownCount"
           name="Selber gezählte Besucher"
         />
+      </main>
+      <main v-else>
+        <div class="no-event-msg">
+          <h1 class="no-event-msg__value">
+            Kein Event ausgewählt
+          </h1>
+        </div>
       </main>
       <eventSelect
         v-model="eventId"
@@ -59,14 +69,16 @@ export default {
       eventId: null,
       direction: null,
       adminPrep: false,
-      adminInterval: null
+      adminInterval: null,
+      clientId: null
     }
   },
   computed: {
     ...mapState({ connection: 'connection' }),
-    currentVisitors () {
-      let currentVisitors = this.$store.getters['counter/get'](this.eventId)
-      return currentVisitors ? currentVisitors.data.diff : 0
+    counter () {
+      console.log(this.eventId)
+      console.log(this.$store.getters['counter/get'](this.eventId))
+      return this.$store.getters['counter/get'](this.eventId)
     }
   },
   watch: {
@@ -80,8 +92,15 @@ export default {
       this.ownCount = 0
     }
   },
-  created () {
+  async created () {
     this.$store.dispatch('counter/get', this.eventId)
+    let clientId = localStorage.getItem('clientId')
+    if (!clientId) {
+      const client = await this.$store.dispatch('client/create', {})
+      localStorage.setItem('clientId', client._id)
+      clientId = client._id
+    }
+    this.clientId = clientId
   },
   methods: {
     swipe (swipe) {
@@ -102,19 +121,19 @@ export default {
       enter: 'create'
     }),
     count () {
-      const { eventId, direction } = this
+      const { eventId, direction, clientId } = this
       if (eventId && direction) {
         navigator.vibrate(100)
         this.blink = true
         this.ownCount++
-        this.enter({ eventId, direction })
+        this.enter({ eventId, direction, clientId })
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   section {
     height: 100%;
     background-color: #2980b9;
@@ -146,5 +165,15 @@ export default {
     width: 50%;
     bottom: 0;
     right:0;
+  }
+  .no-event-msg {
+    padding: 3em 0;
+    text-align: center;
+    color: #fff;
+
+    .no-event-msg__value {
+      margin: 0;
+      font-size: 3em;
+    }
   }
 </style>

@@ -25,6 +25,7 @@ export default new Vuex.Store({
     service('counter'),
     service('event', { instanceDefaults: eventDefaults }),
     service('entry'),
+    service('client'),
     service('channel-subscription')
   ]
 })
