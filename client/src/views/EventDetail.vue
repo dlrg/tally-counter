@@ -70,9 +70,6 @@ export default {
       handler: 'fetchData'
     }
   },
-  mounted () {
-    console.log(this.$vuetify.breakpoint)
-  },
   created () {
     this.loadStats()
     this.statsLoadInterval = setInterval(() => this.loadStats(), this.statsLoadIntervalTime)

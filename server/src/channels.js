@@ -45,6 +45,10 @@ module.exports = function(app) {
     return app.channel('authenticated')
   })
 
+  app.service('event').publish((event) => {
+    return app.channel('anonymous', 'authenticated')
+  })
+
   app.service('counter').publish((counter) => {
     return [
       app.channel('event/*'),
