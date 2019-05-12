@@ -1,20 +1,22 @@
 {
-  "name": "Tally Counter",
-  "short_name": "Tally Counter",
+  "name": "TallyCounter",
+  "lang": "de",
+  "short_name": "TallyCounter",
+  "description": "Zum zählen von ein und ausgehenden Personen zur Ermittlung der aktuellen Besucherzahl",
   "icons": [
     {
-      "src": "./img/icons/android-chrome-192x192.png",
+      "src": "./img/icons/adler192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./img/icons/android-chrome-512x512.png",
+      "src": "./img/icons/adler512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#2980b9",
+  "theme_color": "#2980b9"
 }
