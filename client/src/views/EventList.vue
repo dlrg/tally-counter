@@ -85,7 +85,6 @@ export default {
         return Number.parseInt(this.$route.query.limit) || 5
       },
       set (limit) {
-        console.log(limit)
         this.$router.replace({ query: { ...this.$route.query, limit } })
       }
     },
